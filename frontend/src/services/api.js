@@ -1,25 +1,6 @@
 import axios from 'axios';
 
-// Automatically detect API URL based on environment
-const getApiUrl = () => {
-  // If VITE_API_URL is explicitly set, use it
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  
-  // If running on production domain (Render/Netlify/etc), use production backend
-  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    // Try common backend URL pattern (adjust if your backend is deployed elsewhere)
-    return 'https://eduquiz-platform-backend.onrender.com/api';
-  }
-  
-  // Default to local development
-  return 'http://localhost:5000/api';
-};
-
-const API_URL = getApiUrl();
-
-console.log('API URL:', API_URL);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,
